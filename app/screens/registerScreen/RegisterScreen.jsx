@@ -1,10 +1,10 @@
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
-import RegisterSchema from '../components/RegisterSchema';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
+import RegisterSchema from '../../validator/RegisterValidator';
 
-const RegisterForm = () => {
+const RegisterScreen = () => {
 
     const navigation = useNavigation();
 
@@ -14,7 +14,7 @@ const RegisterForm = () => {
                 initialValues={{ username: '', password: '', confirmPassword: '', email: '', fullName: '', address: '', mobilePhone: '' }}
                 validationSchema={RegisterSchema}
                 onSubmit={(values, { setSubmitting }) => {
-                    axios.post('http://10.10.100.236:8089/auth/register/customer', values)
+                    axios.post('http://10.10.100.236:8089/auth/register', values)
                         .then(response => {
                             console.log(response.data);
                             setSubmitting(false);
@@ -140,4 +140,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default RegisterForm;
+export default RegisterScreen;

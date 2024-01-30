@@ -11,7 +11,7 @@ export default function LoginScreen() {
   const dispatch = useDispatch();
   const username = useSelector((state) => state.users.username);
   const password = useSelector((state) => state.users.password);
-  const navigate = useNavigation()
+  const navigation = useNavigation();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -27,7 +27,7 @@ export default function LoginScreen() {
         await AsyncStorage.setItem("authenticate", "true");
         await AsyncStorage.setItem("role", response.data.data.role)
         await AsyncStorage.setItem("token", response.data.data.token)
-        navigate.navigate(<HomeScreen/>)
+        navigation.navigate("Home")
     }catch(e){
         console.log(e)
     }
