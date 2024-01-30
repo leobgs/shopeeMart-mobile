@@ -7,6 +7,7 @@ import RegisterScreen from "./app/screens/registerScreen/RegisterScreen";
 import { Provider } from "react-redux";
 import { store } from "./app/store/store";
 import HomeScreen from "./app/screens/homeScreen/HomeScreen";
+import TabNavigation from "./app/navigations/TabNavigation";
 
 const Stack = createStackNavigator();
 
@@ -22,7 +23,7 @@ export default function App() {
         >
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="HomeScreen" component={TabNavigation} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

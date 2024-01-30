@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://10.10.100.192:8080/api/auth/",
+  baseURL: "http://10.10.100.183:8089/auth",
   headers: {
     "Content-Type": "application/json",
   },
@@ -21,11 +21,18 @@ const api = axios.create({
 // );
 
 export const register = () => {
-    return api.post("/register");
+  return api.post("/register", values);
 }
 
 export const login = (loginData) => {
-    return api.post("", loginData);
-  }
+  return api.post("login", loginData);
+}
 
+export const getUserData = () => {
+  return api.get("/customer/");
+}
+
+export const updateUserData = () => {
+  return api.put("/customer/");
+}
 export default api;

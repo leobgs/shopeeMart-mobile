@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../services/AuthService";
 import { setAuthenticate, setPassword, setRole, setUsername } from "../../store/reducers/userSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation} from "@react-navigation/native"
-import HomeScreen from "../homeScreen/HomeScreen";
+import { useNavigation } from "@react-navigation/native"
 
 export default function LoginScreen() {
   const dispatch = useDispatch();
@@ -15,21 +14,21 @@ export default function LoginScreen() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try{
-        const response = await login({
-            username: username,
-            password: password
-        })
+    try {
+      const response = await login({
+        username: username,
+        password: password
+      })
 
-        console.log(response)
-        dispatch(setAuthenticate(true))
-        dispatch(setRole(response.data.data.role))
-        await AsyncStorage.setItem("authenticate", "true");
-        await AsyncStorage.setItem("role", response.data.data.role)
-        await AsyncStorage.setItem("token", response.data.data.token)
-        navigation.navigate("Home")
-    }catch(e){
-        console.log(e)
+      dispatch(setAuthenticate(true))
+      dispatch(setRole(response.data.role))
+      await AsyncStorage.setItem("authenticate", "true");
+      await AsyncStorage.setItem("role", response.data.role)
+      await AsyncStorage.setItem("token", response.data.token)
+      await AsyncStorage.setItem("username", username)
+      navigation.navigate("HomeScreen")
+    } catch (e) {
+      console.log(e)
     }
   };
 
@@ -40,13 +39,13 @@ export default function LoginScreen() {
         <TextInput
           style={styles.input}
           placeholder="username"
-          onChangeText={(e)=> dispatch(setUsername(e))}
+          onChangeText={(e) => dispatch(setUsername(e))}
           // onChangeText={onChangeText}
           value={username}
         />
         <TextInput
           style={styles.input}
-          onChangeText={(e)=> dispatch(setPassword(e))}
+          onChangeText={(e) => dispatch(setPassword(e))}
           value={password}
           placeholder="password"
         //   keyboardType="numeric"
@@ -67,6 +66,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   title: {
+    marginTop: 16,
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",

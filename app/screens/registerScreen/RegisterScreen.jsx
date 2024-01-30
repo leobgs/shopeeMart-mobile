@@ -1,12 +1,8 @@
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
-import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
-<<<<<<< HEAD:screens/RegisterForm.jsx
-import LoginForm from './LoginForm';
-=======
 import RegisterSchema from '../../validator/RegisterValidator';
->>>>>>> 79a7e279bdfe8e90b11d708677c51c4d1a121f49:app/screens/registerScreen/RegisterScreen.jsx
+import { register } from '../../services/AuthService';
 
 const RegisterScreen = () => {
 
@@ -15,10 +11,18 @@ const RegisterScreen = () => {
     return (
         <View style={styles.container}>
             <Formik
-                initialValues={{ username: '', password: '', confirmPassword: '', email: '', fullName: '', address: '', mobilePhone: '' }}
+                initialValues={{
+                    username: '',
+                    password: '',
+                    confirmPassword: '',
+                    email: '',
+                    fullName: '',
+                    address: '',
+                    mobilePhone: ''
+                }}
                 validationSchema={RegisterSchema}
                 onSubmit={(values, { setSubmitting }) => {
-                    axios.post('http://10.10.100.236:8089/auth/register', values)
+                    register(values)
                         .then(response => {
                             console.log(response.data);
                             setSubmitting(false);
@@ -33,6 +37,7 @@ const RegisterScreen = () => {
 
                 {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                     <View>
+
                         <Text>Username</Text>
                         <TextInput
                             style={styles.input}
@@ -119,6 +124,7 @@ const RegisterScreen = () => {
                             <Text style={styles.error}>{errors.mobilePhone}</Text>
                         ) : null}
                         <Button style={styles.button} onPress={handleSubmit} title="Submit" />
+
                     </View>
                 )}
 
