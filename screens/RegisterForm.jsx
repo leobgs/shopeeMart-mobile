@@ -3,6 +3,7 @@ import { Formik } from 'formik';
 import RegisterSchema from '../components/RegisterSchema';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
+import LoginForm from './LoginForm';
 
 const RegisterForm = () => {
 
@@ -18,7 +19,7 @@ const RegisterForm = () => {
                         .then(response => {
                             console.log(response.data);
                             setSubmitting(false);
-                            navigation.navigate('Login');
+                            navigation.navigate(<LoginForm />);
                         })
                         .catch(error => {
                             console.log(error);
@@ -26,6 +27,7 @@ const RegisterForm = () => {
                         });
                 }}
             >
+
                 {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                     <View>
                         <Text>Username</Text>
@@ -116,8 +118,9 @@ const RegisterForm = () => {
                         <Button style={styles.button} onPress={handleSubmit} title="Submit" />
                     </View>
                 )}
+
             </Formik>
-        </View>
+        </View >
     );
 };
 
